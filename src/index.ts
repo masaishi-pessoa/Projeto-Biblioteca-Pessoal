@@ -212,3 +212,45 @@ function exibirPorDecada(): void {
 
 // Teste da Etapa 7
 exibirPorDecada();
+
+// =============================================================
+// ETAPA 8 — DEMONSTRAÇÃO COMPLETA
+// =============================================================
+
+console.log("\n" + "=".repeat(30));
+console.log("   SISTEMA DE GESTÃO DE BIBLIOTECA");
+console.log("=".repeat(30));
+
+// 1. Exibição Inicial
+exibirBiblioteca();
+
+// 2. Demonstração de Cadastro
+console.log("\n>>> Cadastrando novos títulos...");
+adicionarLivro("A Sociedade do Anel", "J.R.R. Tolkien", 1954, 576);
+adicionarLivro("O Nome da Rosa", "Umberto Eco", 1980, 512);
+
+// 3. Demonstração de Busca e Status
+console.log("\n>>> Buscando por 'Hobbit'...");
+const busca = buscarPorTitulo("Hobbit");
+if (busca.length > 0 && busca[0] !== undefined) {
+    console.log(`Encontrado: ${titulos[busca[0]]}`);
+    marcarComoLido(busca[0], 5); // Marcando como lido com nota máxima
+}
+
+// 4. Painel de Estatísticas Formatado
+console.log("\n" + "=".repeat(30));
+console.log("       ESTATÍSTICAS DA COLEÇÃO");
+console.log("=".repeat(30));
+console.log(`Total de Livros:      ${totalLivros()}`);
+console.log(`Livros Lidos:         ${totalLidos()} (${percentualLidos()}%)`);
+console.log(`Média de Avaliações:  ${mediaAvaliacoes()}`);
+console.log(`Livro Top da Lista:   ${livroMaiorAvaliacao()}`);
+console.log(`Total Páginas Lidas:  ${totalPaginasLidas()}`);
+console.log("-".repeat(30));
+
+// 5. Organização por Décadas
+exibirPorDecada();
+
+console.log("\n" + "=".repeat(30));
+console.log("       FIM DA DEMONSTRAÇÃO");
+console.log("=".repeat(30));
