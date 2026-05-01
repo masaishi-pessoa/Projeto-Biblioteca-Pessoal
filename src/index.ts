@@ -73,3 +73,35 @@ removerLivro(2); // Remove o livro que estiver na posição 2 (índice 2)
 
 console.log("\n--- Biblioteca Final ---");
 exibirBiblioteca();  
+
+function buscarPorTitulo(termo: string): number[] {
+    const indicesEncontrados: number[] = [];
+
+    // Percorremos os títulos para encontrar quais incluem o termo pesquisado
+    titulos.forEach((titulo, index) => {
+        if (titulo.toLowerCase().includes(termo.toLowerCase())) {
+            indicesEncontrados.push(index);
+        }
+    });
+
+    return indicesEncontrados;
+}   
+
+function listarPorAutor(autorBuscado: string): string[] {
+    // 1. Criamos um array de índices baseado no tamanho da nossa biblioteca [0, 1, 2...]
+    const indices = titulos.map((_, i) => i);
+
+    return indices
+        // 2. Filtramos apenas os índices onde o autor bate com a busca
+        .filter(i => autores[i]?.toLowerCase() === autorBuscado.toLowerCase())
+        // 3. Transformamos esses índices nos nomes dos títulos correspondentes
+        .map(i => titulos[i] as string);
+}
+
+console.log("\n--- Testando Busca por Título (termo: 'Clean') ---");
+const resultadosBusca = buscarPorTitulo("Clean");
+resultadosBusca.forEach(i => console.log(`Encontrado: ${titulos[i]}`));
+
+console.log("\n--- Testando Listagem por Autor (Tolkien) ---");
+const livrosDoAutor = listarPorAutor("J.R.R. Tolkien");
+console.log(`Livros de Tolkien: ${livrosDoAutor.join(", ")}`);
