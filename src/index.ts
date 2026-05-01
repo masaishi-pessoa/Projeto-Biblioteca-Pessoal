@@ -4,6 +4,7 @@ const anos: number[] = [];
 const paginas: number[] = [];
 const lido: boolean[] = [];
 const avaliacoes: number[] = []; // 0 se nao lido, 1 a 5 se lido
+const listaPaginas: number[] = [];
 
 titulos.push('O Hobbit', 'Clean Code', '1984', 'Dom Casmurro', 'O Nome do Vento');
 autores.push('J.R.R. Tolkien', 'Robert C. Martin', 'George Orwell', 'Machado de Assis', 'Patrick Rothfuss');
@@ -24,3 +25,51 @@ function exibirBiblioteca(): void {
 
 // Chame a função para testar
 exibirBiblioteca();
+
+function adicionarLivro(titulo: string, autor: string, ano: number, paginas: number): void {
+    // Validação com if conforme solicitado
+    if (ano > 0 && paginas > 0) {
+        titulos.push(titulo);
+        autores.push(autor);
+        anos.push(ano);
+        listaPaginas.push(paginas); // Use o nome exato que você deu ao array de páginas
+        lido.push(false);            // Todo livro novo começa como não lido
+        avaliacoes.push(0);          // E sem ava liação
+        
+        console.log(`Livro "${titulo}" adicionado com sucesso!`);
+    } else {
+        console.log("Erro: Ano e páginas devem ser valores positivos.");
+    }
+}
+
+function removerLivro(indice: number): void {
+    // Verificamos se o índice existe na lista
+    if (indice >= 0 && indice < titulos.length) {
+        const removido = titulos[indice];
+        
+        titulos.splice(indice, 1);
+        autores.splice(indice, 1);
+        anos.splice(indice, 1);
+        listaPaginas.splice(indice, 1);
+        lido.splice(indice, 1);
+        avaliacoes.splice(indice, 1);
+        
+        console.log(`Livro "${removido}" removido com sucesso.`);
+    } else {
+        console.log("Erro: Índice inválido.");
+    }
+}
+
+// --- ÁREA DE TESTES (ETAPA 3) ---
+console.log("\n--- Testando Cadastro ---");
+adicionarLivro("A Sociedade do Anel", "J.R.R. Tolkien", 1954, 576);
+adicionarLivro("O Código Limpo", "Robert C. Martin", 2008, 464);
+
+console.log("\n--- Biblioteca Após Adições ---");
+exibirBiblioteca();
+
+console.log("\n--- Testando Remoção ---");
+removerLivro(2); // Remove o livro que estiver na posição 2 (índice 2)
+
+console.log("\n--- Biblioteca Final ---");
+exibirBiblioteca();  
