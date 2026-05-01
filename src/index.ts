@@ -105,3 +105,35 @@ resultadosBusca.forEach(i => console.log(`Encontrado: ${titulos[i]}`));
 console.log("\n--- Testando Listagem por Autor (Tolkien) ---");
 const livrosDoAutor = listarPorAutor("J.R.R. Tolkien");
 console.log(`Livros de Tolkien: ${livrosDoAutor.join(", ")}`);
+
+function marcarComoLido(indice: number, avaliacao: number): void {
+    // Verifica se o índice existe na biblioteca
+    if (indice >= 0 && indice < titulos.length) {
+        // Validação da avaliação entre 1 e 5 conforme o roteiro
+        if (avaliacao >= 1 && avaliacao <= 5) {
+            lido[indice] = true;
+            avaliacoes[indice] = avaliacao;
+            console.log(`\nStatus atualizado: "${titulos[indice]}" agora está LIDO com nota ${avaliacao}.`);
+        } else {
+            console.log("Erro: A avaliação deve ser um número entre 1 e 5.");
+        }
+    } else {
+        console.log("Erro: Índice inválido para marcação de leitura.");
+    }
+}
+
+function listarLidos(): string[] {
+    // Filtra os títulos cujo valor no array 'lido' seja true
+    return titulos.filter((_, i) => lido[i]);
+}
+
+function listarPendentes(): string[] {
+    // Filtra os títulos cujo valor no array 'lido' seja false
+    return titulos.filter((_, i) => !lido[i]);
+}
+
+console.log("\n--- Testando Status de Leitura ---");
+marcarComoLido(2, 4); // Marca o livro no índice 2 como lido
+
+console.log("Livros Lidos:", listarLidos());
+console.log("Livros Pendentes:", listarPendentes());
