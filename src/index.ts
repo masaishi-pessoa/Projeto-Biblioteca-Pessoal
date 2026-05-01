@@ -137,3 +137,56 @@ marcarComoLido(2, 4); // Marca o livro no índice 2 como lido
 
 console.log("Livros Lidos:", listarLidos());
 console.log("Livros Pendentes:", listarPendentes());
+
+function totalLivros(): number {
+    return titulos.length; // Retorna o tamanho total da coleção
+}
+
+function totalLidos(): number {
+    // Filtra o array 'lido' para contar apenas os valores true
+    return lido.filter(status => status === true).length;
+}
+
+function percentualLidos(): number {
+    const total = totalLivros();
+    if (total === 0) return 0;
+    // Calcula a porcentagem e converte para número com 2 casas decimais
+    return Number(((totalLidos() / total) * 100).toFixed(2));
+}
+
+function mediaAvaliacoes(): number {
+    // Filtra as avaliações que são maiores que 0 (apenas livros lidos)
+    const notasLidos = avaliacoes.filter(nota => nota > 0);
+    
+    if (notasLidos.length === 0) return 0;
+
+    // Usa o reduce para somar todas as notas[cite: 1]
+    const soma = notasLidos.reduce((acc, nota) => acc + nota, 0);
+    return Number((soma / notasLidos.length).toFixed(2));
+}
+
+function livroMaiorAvaliacao(): string {
+    if (titulos.length === 0) return "Nenhum livro cadastrado";
+
+    // Usa o reduce para encontrar o título com a maior nota correspondente[cite: 1]
+    return titulos.reduce((maior, atual, i) => {
+        const indiceMaior = titulos.indexOf(maior);
+        return avaliacoes[i]! > avaliacoes[indiceMaior]! ? atual : maior;
+    });
+}
+
+function totalPaginasLidas(): number {
+    // Usa o reduce percorrendo o array de páginas e somando apenas se lido[i] for true[cite: 1]
+    // Importante: use o nome do seu array de páginas (paginas ou listaPaginas)
+    return paginas.reduce((acc, qtd, i) => {
+        return lido[i] ? acc + qtd : acc;
+    }, 0);
+}
+
+console.log("\n=== ESTATÍSTICAS (ETAPA 6) ===");
+console.log(`Total de livros: ${totalLivros()}`);
+console.log(`Livros lidos: ${totalLidos()}`);
+console.log(`Percentual lidos: ${percentualLidos()}%`);
+console.log(`Média de avaliações: ${mediaAvaliacoes()}`);
+console.log(`Livro melhor avaliado: ${livroMaiorAvaliacao()}`);
+console.log(`Total de páginas lidas: ${totalPaginasLidas()}`);
