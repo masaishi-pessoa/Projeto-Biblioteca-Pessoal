@@ -183,10 +183,32 @@ function totalPaginasLidas(): number {
     }, 0);
 }
 
-console.log("\n=== ESTATÍSTICAS (ETAPA 6) ===");
+console.log("\n=== ESTATÍSTICAS ===");
 console.log(`Total de livros: ${totalLivros()}`);
 console.log(`Livros lidos: ${totalLidos()}`);
 console.log(`Percentual lidos: ${percentualLidos()}%`);
 console.log(`Média de avaliações: ${mediaAvaliacoes()}`);
 console.log(`Livro melhor avaliado: ${livroMaiorAvaliacao()}`);
 console.log(`Total de páginas lidas: ${totalPaginasLidas()}`);
+
+function exibirPorDecada(): void {
+    console.log("\n=== POR DÉCADA ===");
+
+    // 1. Criamos um array apenas com as décadas de cada livro
+    const todasDecadas = anos.map(ano => Math.floor(ano / 10) * 10);
+
+    // 2. Removemos as duplicatas para ter uma lista de décadas únicas e ordenadas
+    const decadasUnicas = [...new Set(todasDecadas)].sort((a, b) => a - b);
+
+    // 3. Para cada década encontrada, filtramos e exibimos os livros correspondentes
+    decadasUnicas.forEach(decada => {
+        const livrosDaDecada = titulos
+            .filter((_, i) => Math.floor(anos[i]! / 10) * 10 === decada)
+            .join(", ");
+
+        console.log(`${decada}s: ${livrosDaDecada}`);
+    });
+}
+
+// Teste da Etapa 7
+exibirPorDecada();
